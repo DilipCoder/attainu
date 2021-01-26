@@ -15,7 +15,7 @@ export const patch = (req, res) => {
     const {patch, doc} = req.body;
     const document = applyPatch(doc, patch).newDocument;
     return res.status(200).json({ error: false, message: 'thumbnail generated', data: document });
-    } catch (err) {
+    } catch (e) {
         return res.status(500).json({ error: true, message: e.message });
     }
 }

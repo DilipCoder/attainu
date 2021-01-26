@@ -4,7 +4,7 @@ import { checkAuth } from '../utils';
 
 const routes = new Router();
 
-routes.post('/patch',checkAuth, PatchController.patch);
+routes.patch('/patch',checkAuth, PatchController.patch);
 
 
 

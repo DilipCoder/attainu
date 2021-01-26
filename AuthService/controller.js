@@ -10,7 +10,7 @@ export const login = (req, res) => {
         return res.status(500).json({ error: true, message: 'enter password' });
     }
     return res.status(200).json({ error: false, message: 'user logged in', data: signToken(username, password) });
-    } catch (err) {
+    } catch (e) {
         return res.status(500).json({ error: true, message: e.message });
     }
     

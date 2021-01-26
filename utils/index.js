@@ -16,7 +16,7 @@ export const checkAuth = async (req, res, next) => {
         message: "Auth failed",
       });
     }
-    next(user);
+    next();
   } catch (error) {
     return res.status(401).json({
       error: true,

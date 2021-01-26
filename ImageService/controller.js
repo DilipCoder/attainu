@@ -19,7 +19,7 @@ export const generateThumbnail = async (req, res) => {
     const options = { width: 50, height: 50, responseType: 'base64' };
     const thumbnail = await imageThumbnail({ uri }, options);
     return res.status(200).json({ error: false, message: 'thumbnail generated', data: thumbnail });
-    } catch (err) {
+    } catch (e) {
         return res.status(500).json({ error: true, message: e.message });
     }
     
