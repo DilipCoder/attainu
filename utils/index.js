@@ -9,13 +9,14 @@ export const checkAuth = async (req, res, next) => {
       try {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, JWT_KEY);
-    if(!decoded?.user){
+    const {user} = decoded;
+    if(!user){
       return res.status(401).json({
         error: true,
         message: "Auth failed",
       });
     }
-    next();
+    next(user);
   } catch (error) {
     return res.status(401).json({
       error: true,
