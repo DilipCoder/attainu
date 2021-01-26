@@ -1,0 +1,93 @@
+http:
+  port: 8000
+admin:
+  port: 9876
+  host: localhost
+apiEndpoints:
+  api:
+    host: localhost
+    paths: '/ip'
+  auth:
+    host: localhost
+    paths:  ['/auth', '/auth/*']
+  db:
+    host: localhost
+    paths: ['/db', '/db/*']
+  image:
+    host: localhost
+    paths: ['/image', '/image/*']
+  json:
+    host: localhost
+    paths: ['/json', '/json/*']
+
+serviceEndpoints:
+  httpbin:
+    url: 'https://httpbin.org'
+  authService:
+    url: 'http://localhost:3000'
+  dbService:
+    url: 'http://localhost:3001'
+  imageService:
+    url: 'http://localhost:3002'
+  jsonService:
+    url: 'http://localhost:3003'
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+pipelines:
+  default:
+    apiEndpoints:
+      - api
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: httpbin 
+              changeOrigin: true
+  authPipeline:
+    apiEndpoints:
+      - auth
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: authService 
+              changeOrigin: true
+  dbPipeline:
+    apiEndpoints:
+      - db
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: dbService 
+              changeOrigin: true
+  imagePipeline:
+    apiEndpoints:
+      - image
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: imageService 
+              changeOrigin: true
+  jsonPipeline:
+    apiEndpoints:
+      - json
+    policies:
+    # Uncomment `key-auth:` when instructed to in the Getting Started guide.
+    # - key-auth:
+      - proxy:
+          - action:
+              serviceEndpoint: jsonService
+              changeOrigin: true
